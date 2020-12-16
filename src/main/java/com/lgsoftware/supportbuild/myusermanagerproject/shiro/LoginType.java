@@ -1,4 +1,4 @@
-package com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro;
+package com.lgsoftware.supportbuild.myusermanagerproject.shiro;
 
 /**
  * @program: psmp-fx

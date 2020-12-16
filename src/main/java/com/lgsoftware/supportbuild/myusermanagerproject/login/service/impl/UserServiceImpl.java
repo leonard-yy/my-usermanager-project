@@ -5,8 +5,8 @@
  ****************************************************************************************/
 package com.lgsoftware.supportbuild.myusermanagerproject.login.service.impl;
 
-import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.User;
-import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.UserService;
+import com.lgsoftware.supportbuild.myusermanagerproject.shiro.User;
+import com.lgsoftware.supportbuild.myusermanagerproject.shiro.UserService;
 import com.lgsoftware.supportbuild.myusermanagerproject.login.dao.SysUserMapper;
 import com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser;
 import org.slf4j.Logger;

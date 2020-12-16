@@ -3,6 +3,7 @@ package com.lgsoftware.supportbuild.myusermanagerproject.login.service;/**
  * INFO --
  */
 
+import com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,4 +17,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface SysUserService {
+
+    SysUser selectUserByUserCode(String loginName);
 }

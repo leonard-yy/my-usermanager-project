@@ -1,12 +1,9 @@
-package com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro;
+package com.lgsoftware.supportbuild.myusermanagerproject.shiro;
 
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 /**
- * @program: psmp-fx
  * @description: CustomeToken
- * @author: Mr.Wang
- * @create: 2020-03-04 09:55
  **/
 public class CustomToken extends UsernamePasswordToken {
     private static final long serialVersionUID = -2564928913725078138L;

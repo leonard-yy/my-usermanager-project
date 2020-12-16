@@ -1,4 +1,4 @@
-package com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.util;/**
+package com.lgsoftware.supportbuild.myusermanagerproject.shiro.util;/**
  * CREATE BY LiuG ON 2020/11/12.
  * INFO --
  */

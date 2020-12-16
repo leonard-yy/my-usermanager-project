@@ -1,6 +1,6 @@
-package com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro;
+package com.lgsoftware.supportbuild.myusermanagerproject.shiro;
 
-import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.util.RealmUtils;
+import com.lgsoftware.supportbuild.myusermanagerproject.shiro.util.RealmUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

@@ -4,10 +4,12 @@
  */
 package com.lgsoftware.supportbuild.myusermanagerproject.login.controller;
 
-import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.CustomToken;
-import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.LoginType;
-import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.User;
+import com.lgsoftware.supportbuild.myusermanagerproject.shiro.CustomToken;
+import com.lgsoftware.supportbuild.myusermanagerproject.shiro.LoginType;
+import com.lgsoftware.supportbuild.myusermanagerproject.shiro.User;
 import com.lgsoftware.supportbuild.myusermanagerproject.common.ResponseVO;
+import com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser;
+import com.lgsoftware.supportbuild.myusermanagerproject.login.service.SysUserService;
 import com.lgsoftware.supportbuild.myusermanagerproject.util.ResponseVOUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -19,6 +21,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <Description> User Login<br>
@@ -42,6 +45,9 @@ import java.util.Date;
 public class LoginController {
 
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+    @Autowired
+    private SysUserService sysUserService;
 
     @RequestMapping(value = "/dologin.html", method = RequestMethod.POST)
     public ResponseVO doLogin(HttpServletRequest request, @RequestBody User user) {
@@ -65,9 +71,12 @@ public class LoginController {
 
         // 判断登录是否成功
         if (currentUser.isAuthenticated()) {
-            // 记录登录时间
-            Date loginTime = Calendar.getInstance().getTime();
-            return ResponseVOUtils.buildSuccess(currentUser);
+            Map<String, Object> result = new HashMap<>();
+            SysUser sysUser = sysUserService.selectUserByUserCode(loginName);
+            // 记录登录日志 略
+            result.put("user", sysUser);
+            result.put("session", currentUser.getSession());
+            return ResponseVOUtils.buildSuccess(result);
         }
         else {
             String exceptionClassName = (String) request
@@ -96,6 +105,7 @@ public class LoginController {
                 msg = "其他错误：" + exceptionClassName;
             }
             logger.debug(msg);
+            // currentUser.logout();
             return ResponseVOUtils.buildError(-1, msg);
         }
     }

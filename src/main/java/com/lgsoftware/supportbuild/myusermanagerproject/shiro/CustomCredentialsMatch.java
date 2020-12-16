@@ -1,4 +1,4 @@
-package com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro;
+package com.lgsoftware.supportbuild.myusermanagerproject.shiro;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

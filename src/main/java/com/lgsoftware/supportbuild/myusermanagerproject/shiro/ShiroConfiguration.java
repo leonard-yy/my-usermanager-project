@@ -1,4 +1,4 @@
-package com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro;/**
+package com.lgsoftware.supportbuild.myusermanagerproject.shiro;/**
  * CREATE BY LiuG ON 2020/11/12.
  * INFO --
  */
@@ -11,17 +11,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.LinkedHashMap;
+
 /**
  * <Description> ShiroRealmsConfiguration<br>
  *
  * @author LiuG<br>
  * @version 1.0<br>
  * @CreateDate 2020/11/12 <br>
- * @see com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro <br>
+ * @see com.lgsoftware.supportbuild.myusermanagerproject <br>
  * @since V1.0<br>
  */
 @Configuration
-public class ShiroRealmsConfiguration {
+public class ShiroConfiguration {
 
     private static final String DEFAULT_ROLES = "ROLE_ADMIN";
 
@@ -47,6 +49,11 @@ public class ShiroRealmsConfiguration {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager);
+        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+        map.put("/dologin**", "anon");
+        map.put("/index.html", "authc");
+        map.put("/**/**", "authc");
+        bean.setFilterChainDefinitionMap(map);
         return bean;
     }
 
@@ -64,4 +71,5 @@ public class ShiroRealmsConfiguration {
         rememberMe.setCipherKey(decode);
         return rememberMe;
     }
+
 }

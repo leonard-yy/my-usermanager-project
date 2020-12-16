@@ -3,6 +3,10 @@ package com.lgsoftware.supportbuild.myusermanagerproject.login.service.impl;/**
  * INFO --
  */
 
+import com.lgsoftware.supportbuild.myusermanagerproject.login.dao.SysUserMapper;
+import com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser;
+import com.lgsoftware.supportbuild.myusermanagerproject.login.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +19,12 @@ import org.springframework.stereotype.Service;
  * @since V1.0<br>
  */
 @Service
-public class SysUserServiceImpl {
+public class SysUserServiceImpl implements SysUserService {
+    @Autowired
+    private SysUserMapper mapper;
 
+    @Override
+    public SysUser selectUserByUserCode(String loginName) {
+        return mapper.selectByUserCode(loginName);
+    }
 }
