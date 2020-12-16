@@ -3,7 +3,9 @@ package com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro;/**
  * INFO --
  */
 
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -52,6 +54,14 @@ public class ShiroRealmsConfiguration {
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(certifyUserRealm());
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
+    }
+
+    private CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager rememberMe = new CookieRememberMeManager();
+        byte[] decode = Base64.decode("6AvVhmFLUs0KTA3Kprsdag==");
+        rememberMe.setCipherKey(decode);
+        return rememberMe;
     }
 }

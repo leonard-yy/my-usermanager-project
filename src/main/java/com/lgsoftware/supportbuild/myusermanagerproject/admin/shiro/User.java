@@ -21,6 +21,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String salt;
+    private boolean isRememberMe;
 
     public User() {
     }
@@ -57,6 +58,15 @@ public class User implements Serializable {
         this.salt = salt;
     }
 
+    public boolean isRememberMe() {
+        return isRememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        isRememberMe = rememberMe;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -76,6 +86,7 @@ public class User implements Serializable {
         }
     }
 
+    @Override
     public int hashCode() {
         return this.userId != null ? this.userId.hashCode() : 0;
     }

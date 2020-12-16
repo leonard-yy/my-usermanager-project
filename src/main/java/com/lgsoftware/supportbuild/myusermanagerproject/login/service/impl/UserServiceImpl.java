@@ -7,8 +7,11 @@ package com.lgsoftware.supportbuild.myusermanagerproject.login.service.impl;
 
 import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.User;
 import com.lgsoftware.supportbuild.myusermanagerproject.admin.shiro.UserService;
+import com.lgsoftware.supportbuild.myusermanagerproject.login.dao.SysUserMapper;
+import com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -28,6 +31,9 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    @Autowired
+    private SysUserMapper mapper;
 
     /**
      * Description: <br>
@@ -73,20 +79,20 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findUser(String username) {
-//        SysUser sysUser = null;
-//        try {
-//            sysUser = sysUserDao.selectByUserCode(username);
-//        }
-//        catch (Exception e) {
-//            logger.error(e.getMessage(), e);
-//        }
-//        if (sysUser == null) {
-//            return null;
-//        }
+        SysUser sysUser = null;
+        try {
+            sysUser = mapper.selectByUserCode(username);
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        if (sysUser == null) {
+            return null;
+        }
         User user = new User();
-        user.setUserId("1");
-        user.setUsername("admin");
-        user.setPassword("96e79218965eb72c92a549dd5a330112");
+        user.setUserId(sysUser.getUserId().toString());
+        user.setUsername(sysUser.getUserCode());
+        user.setPassword(sysUser.getUserPwd());
         return user;
     }
 

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgsoftware.supportbuild.myusermanagerproject.login.dao.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser" >
+    <id column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_CODE" property="userCode" jdbcType="VARCHAR" />
+    <result column="USER_PWD" property="userPwd" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="CHAR" />
+    <result column="STATE_DATE" property="stateDate" jdbcType="TIMESTAMP" />
+    <result column="ID_NUMBER" property="idNumber" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFY_DATE" property="lastModifyDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, USER_NAME, USER_CODE, USER_PWD, PHONE, EMAIL, STATE, STATE_DATE, ID_NUMBER, 
+    LAST_MODIFY_DATE, LAST_LOGIN_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUserCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where USER_CODE = #{userCode, jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser" >
+    insert into sys_user (USER_ID, USER_NAME, USER_CODE, 
+      USER_PWD, PHONE, EMAIL, 
+      STATE, STATE_DATE, ID_NUMBER, 
+      LAST_MODIFY_DATE, LAST_LOGIN_DATE)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR}, #{stateDate,jdbcType=TIMESTAMP}, #{idNumber,jdbcType=VARCHAR}, 
+      #{lastModifyDate,jdbcType=TIMESTAMP}, #{lastLoginDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userCode != null" >
+        USER_CODE,
+      </if>
+      <if test="userPwd != null" >
+        USER_PWD,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="stateDate != null" >
+        STATE_DATE,
+      </if>
+      <if test="idNumber != null" >
+        ID_NUMBER,
+      </if>
+      <if test="lastModifyDate != null" >
+        LAST_MODIFY_DATE,
+      </if>
+      <if test="lastLoginDate != null" >
+        LAST_LOGIN_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="stateDate != null" >
+        #{stateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyDate != null" >
+        #{lastModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser" >
+    update sys_user
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        USER_CODE = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="stateDate != null" >
+        STATE_DATE = #{stateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idNumber != null" >
+        ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyDate != null" >
+        LAST_MODIFY_DATE = #{lastModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lgsoftware.supportbuild.myusermanagerproject.login.entity.SysUser" >
+    update sys_user
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_CODE = #{userCode,jdbcType=VARCHAR},
+      USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=CHAR},
+      STATE_DATE = #{stateDate,jdbcType=TIMESTAMP},
+      ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
+      LAST_MODIFY_DATE = #{lastModifyDate,jdbcType=TIMESTAMP},
+      LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
