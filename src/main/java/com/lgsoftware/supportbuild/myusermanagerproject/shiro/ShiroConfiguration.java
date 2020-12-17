@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * <Description> ShiroRealmsConfiguration<br>
@@ -49,11 +51,18 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager);
+        // 认证定义
+        Map<String, Filter> filters = bean.getFilters();
+        filters.put("authc", myAuthc());
+
+        // 过滤器
         LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
         map.put("/dologin**", "anon");
         map.put("/index.html", "authc");
         map.put("/**/**", "authc");
         bean.setFilterChainDefinitionMap(map);
+
+        bean.setLoginUrl("/dologin.html");
         return bean;
     }
 
@@ -65,11 +74,24 @@ public class ShiroConfiguration {
         return securityManager;
     }
 
+    /**
+     *
+     */
     private CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager rememberMe = new CookieRememberMeManager();
         byte[] decode = Base64.decode("6AvVhmFLUs0KTA3Kprsdag==");
         rememberMe.setCipherKey(decode);
         return rememberMe;
+    }
+
+    /**
+     * 自定义过滤器
+     *
+     * @return
+     */
+    private MyShiroAjaxFormAuthenticationFilter myAuthc() {
+        MyShiroAjaxFormAuthenticationFilter filter = new MyShiroAjaxFormAuthenticationFilter();
+        return filter;
     }
 
 }
